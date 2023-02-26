@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/usuario.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { RolesService } from 'src/app/services/roles.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
+    private rolesService: RolesService,
     formBuilder: FormBuilder
   ) {
     this.formBuilder = formBuilder;
@@ -33,7 +35,6 @@ export class LoginComponent implements OnInit {
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
-
   async onLoggedin(event: Event) {
     event.preventDefault();
     if (!this.formGroup) {
@@ -56,6 +57,7 @@ export class LoginComponent implements OnInit {
 
       if (result) {
         localStorage.setItem('isLoggedin', 'true');
+        this.assignRole();
         this.router.navigate([this.returnUrl]);
       } else {
         Swal.fire('Error', 'Usuario no registrado o correo electrónico o contraseña incorrectos.', 'error');
@@ -65,6 +67,22 @@ export class LoginComponent implements OnInit {
       Swal.fire('Error', 'Ocurrió un error de autenticación. Por favor, intente más tarde.', 'error');
     }
   }
+
+  async assignRole(): Promise<void> {
+    const currentUser = await this.userService.getCurrentUser();
+
+    // Verifica si el usuario ya tiene un rol asignado
+    const userRole = await this.rolesService.getRoleByUserId(currentUser.uid);
+    if (!userRole) {
+      // Asigna el rol si el usuario aún no tiene un rol asignado
+      const role = 'Aspirante';
+      await this.rolesService.assignRole(currentUser.uid, role);
+    }
+  }
+
+
+
+
 
   async loginWithGoogle() {
     try {
@@ -80,10 +98,12 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('displayName', displayName);
         this.router.navigate(['/general/profile']);
       }
+      this.assignRole();
     } catch (error) {
       console.error(error);
       Swal.fire('Error', 'Ocurrió un error de autenticación con Google. Por favor, intente más tarde.', 'error');
     }
+
   }
 
 

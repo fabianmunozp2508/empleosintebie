@@ -19,6 +19,7 @@ import { CompanyComponent } from './profile/company/company.component';
 import { ApplicationsComponent } from './profile/applications/applications.component';
 import { CvFormComponent } from './profile/cv-form/cv-form.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RolesGuard } from 'src/app/guards/roles.guard';
 
 const routes: Routes = [
   {
@@ -45,7 +46,6 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
-        
       },
       {
         path: 'pricing',

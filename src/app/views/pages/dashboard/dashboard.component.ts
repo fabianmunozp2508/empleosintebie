@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/usuario.service';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { RolesService } from 'src/app/services/roles.service';
 import { async } from '@angular/core/testing';
+import { Role } from 'src/app/interfaces/role';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,7 @@ import { async } from '@angular/core/testing';
 })
 export class DashboardComponent implements OnInit {
   nombre: any = localStorage.getItem('nombre');
-  role: string;
+  role: Role;
   photoURL: string;
   displayName: string;
   email: string;
@@ -51,7 +52,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private calendar: NgbCalendar, public userService: UserService, private rolesService: RolesService) {}
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     this.getGreetingMessage();
     this.photoURL = this.userService.usuario.photoURL;
     this.displayName = this.userService.usuario.displayName;
@@ -74,8 +75,12 @@ export class DashboardComponent implements OnInit {
     if (document.querySelector('html')?.getAttribute('dir') === 'rtl') {
       this.addRtlOptions();
     }
-    this.role = await this.rolesService.getRole();
+    this.rolesService.getRole().subscribe((role) => {
+      this.role = role;
+    });
+
   }
+
   getGreetingMessage() {
     const currentHour = new Date().getHours();
     if (currentHour >= 5 && currentHour < 12) {

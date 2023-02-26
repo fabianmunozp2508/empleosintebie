@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 
 import {
-  Auth,
+  Auth, user,
 
 } from '@angular/fire/auth';
 import 'firebase/firestore';
 import { Role } from '../interfaces/role';
+import { UserService } from './usuario.service';
+import { Observable } from 'rxjs/internal/Observable';
+import { from, map, of, switchMap } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,20 +17,54 @@ export class RolesService {
   role:Role
   private rolesCollection: AngularFirestoreCollection<Role>;
 
-  constructor(private firestore: AngularFirestore, private auth: Auth) {
+  constructor(private firestore: AngularFirestore, private auth: Auth,  private userService: UserService, private afs: AngularFirestore) {
     this.rolesCollection = firestore.collection<Role>('roles');
   }
 
-  public async assignRole(role: string): Promise<void> {
-    const userId = this.auth.currentUser.uid;
-    const rolesRef = this.firestore.collection('roles');
-    const roleDoc = rolesRef.doc(userId);
-    await roleDoc.set({ role });
+  async assignRole(userId: string, role: string): Promise<void> {
+    // Agrega un documento con el rol para el usuario especificado
+    await this.afs.collection<Role>('roles').doc(userId).set({ role });
   }
 
-  public async getRole(): Promise<string> {
-    const userId = this.auth.currentUser.uid;
-    const roleDoc = await this.rolesCollection.doc(userId).get().toPromise();
-    return roleDoc.data().role;
+
+  getRole(): Observable<Role> {
+    if (!this.userService.isAuthenticated()) {
+      // Redirect the user to the login page or show an error message
+      return of(null);
+    }
+
+    return from(this.userService.getCurrentUser()).pipe(
+      switchMap(user => {
+        if (!user) {
+          // Show an error message or redirect the user to the login page
+          return of(null);
+        }
+        return this.afs.collection<Role>('roles').doc(user.uid).valueChanges().pipe(
+          map(r => {
+            if (r && r.hasOwnProperty('role')) {
+              let role: Role = {
+                role: 'admin'
+              };
+              role.role = r.role;
+              return role;
+            } else {
+              return null;
+            }
+          })
+        );
+      })
+    );
   }
+
+  async getRoleByUserId(userId: string): Promise<Role> {
+    const roleRef = this.afs.collection<Role>('roles').doc(userId);
+    const role = await roleRef.get().toPromise();
+    if (role.exists) {
+      return role.data() as Role;
+    }
+    return null;
+  }
+
+
 }
+

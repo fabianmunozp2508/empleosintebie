@@ -69,7 +69,16 @@ export class UserService {
 
     return result;
   }
+  async isAuthenticated(): Promise<boolean> {
+    const user = await this.auth.currentUser;
+    return user !== null;
+  }
 
+  async getCurrentUser(): Promise<User> {
+    const user = await this.auth.currentUser;
+    return user;
+  }
+  
   logout() {
     signOut(this.auth);
     localStorage.removeItem('isLoggedin');
@@ -96,5 +105,5 @@ export class UserService {
     this.setUserId(this.usuario.uid);
   }
 
-  
+
 }
