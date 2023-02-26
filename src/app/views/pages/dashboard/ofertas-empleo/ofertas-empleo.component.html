@@ -1,0 +1,43 @@
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-12 col-sm-6 col-md-4" *ngFor="let offer of jobOffers">
+      <div class="card my-3">
+        <div class="card-body">
+          <h5 class="card-title">{{offer.title}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{offer.company}}</h6>
+          <p class="card-text">{{offer.description}}</p>
+          <a href="#" class="card-link">Ver oferta</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>-->
+<div class="row">
+  <div class="col-md-6 grid-margin stretch-card" *ngFor="let offer of jobOffers">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">{{offer.title}}</h6>
+
+        <div class="ng-select-container">
+          <div class="ng-value-container">
+            <div class="ng-placeholder"></div>
+            <div
+              role="combobox"
+              aria-haspopup="listbox"
+              class="ng-input"
+              aria-expanded="false"
+            >
+            <h6 class="card-subtitle mb-2 text-muted">{{offer.company}}</h6>
+            </div>
+          </div>
+          <span class="ng-arrow-wrapper">
+            <span class="ng-arrow"></span>
+          </span>
+        </div>
+        <p class="card-text">{{offer.description}}</p>
+        <a href="#" class="card-link">aplicar </a>
+      </div>
+    </div>
+  </div>
+
+</div>

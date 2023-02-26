@@ -1,0 +1,48 @@
+<div class="card rounded">
+  <div class="card-body">
+    <div *ngIf="cvprofiles.length">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <h6 class="card-title mb-0">{{ cvprofiles[0].name }}</h6>
+      </div>
+      <div class="mt-3">
+        <label class="tx-11 fw-bolder mb-0 text-uppercase">Email:</label>
+        <p class="text-muted">{{ cvprofiles[0].email }}</p>
+      </div>
+      <div class="mt-3">
+        <label class="tx-11 fw-bolder mb-0 text-uppercase">Teléfono:</label>
+        <p class="text-muted">{{ cvprofiles[0].telefono }}</p>
+      </div>
+      <div class="mt-3">
+        <label class="tx-11 fw-bolder mb-0 text-uppercase">Dirección:</label>
+        <p class="text-muted">{{ cvprofiles[0].direccion }}</p>
+      </div>
+      <div class="mt-3">
+        <label class="tx-11 fw-bolder mb-0 text-uppercase">Objetivo:</label>
+        <p class="text-muted">{{ cvprofiles[0].objetivo.substring(0, 250) }}</p>
+      </div>
+      <div class="mt-3">
+        <label class="tx-11 fw-bolder mb-0 text-uppercase">Educación:</label>
+        <p class="text-muted">{{ cvprofiles[0].educacion.substring(0, 250) }}</p>
+      </div>
+      <div class="mt-3">
+        <label class="tx-11 fw-bolder mb-0 text-uppercase">Experiencia:</label>
+        <p class="text-muted">{{ cvprofiles[0].experiencia.substring(0, 250) }}</p>
+      </div>
+      <div class="mt-3">
+        <label class="tx-11 fw-bolder mb-0 text-uppercase">Habilidades:</label>
+        <p class="text-muted">{{ cvprofiles[0].habilidades.substring(0, 250) }}</p>
+      </div>
+
+    </div>
+</div>
+
+  <div class="mt-3 my-3 mx-2">
+    <button
+      class="btn btn-primary w-100 mt-3"
+      routerLink="/general/cvform"
+      style="align-items: center"
+    >
+      Editar CV
+    </button>
+  </div>
+</div>

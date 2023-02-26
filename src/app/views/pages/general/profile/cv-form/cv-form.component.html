@@ -1,0 +1,128 @@
+
+<div class="form-header text-center my-5">
+  <h2 class="text-primary">Formulario de mi Curriculum Vitae</h2>
+  <p class="text-secondary">Completa tus datos para crear tu CV</p>
+</div>
+
+  <form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+    <div class="form-row">
+
+
+      <div class="form-group col-md-6">
+        <label for="name">Nombre completo</label>
+        <input type="text" class="form-control" id="name" formControlName="name"/>
+        <div *ngIf="formGroup.get('name').invalid && formGroup.get('name').touched">
+          <small *ngIf="formGroup.get('name').errors.required">El nombre es requerido</small>
+          <small *ngIf="formGroup.get('name').errors.minlength">El nombre debe tener al menos 3 caracteres</small>
+        </div>
+      </div>
+      <div class="form-group col-md-6 mx-3">
+        <label for="email">Correo electrónico</label>
+        <input type="email" class="form-control" id="email" formControlName="email" />
+        <div *ngIf="formGroup.get('email').invalid && formGroup.get('email').touched">
+          <small *ngIf="formGroup.get('email').errors.required">El correo electrónico es requerido</small>
+          <small *ngIf="formGroup.get('email').errors.email">El correo electrónico no es válido</small>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="telefono">Teléfono</label>
+        <input type="text" class="form-control" id="telefono" formControlName="telefono" />
+        <div *ngIf="formGroup.get('telefono').invalid && formGroup.get('telefono').touched">
+          <small *ngIf="formGroup.get('telefono').errors.required">El teléfono es requerido</small>
+          <small *ngIf="formGroup.get('telefono').errors.pattern">El teléfono no es válido</small>
+        </div>
+      </div>
+      <div class="form-group col-md-6 mx-3">
+        <label for="direccion">Dirección</label>
+        <input type="text" class="form-control" id="direccion" formControlName="direccion" />
+        <div *ngIf="formGroup.get('direccion').invalid && formGroup.get('direccion').touched">
+          <small *ngIf="formGroup.get('direccion').errors.required">La dirección es requerida</small>
+        </div>
+      </div>
+    </div>
+  <div class="form-group">
+    <label for="objetivo">Objetivo profesional</label>
+    <textarea
+      class="form-control"
+      id="objetivo"
+      formControlName="objetivo"
+    ></textarea>
+    <div
+      *ngIf="
+        formGroup.get('objetivo').invalid && formGroup.get('objetivo').touched
+      "
+    >
+      <small
+        *ngIf="formGroup.get('objetivo').errors.required"
+        class="text-danger"
+        >El objetivo profesional es requerido</small
+      >
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="educacion">Educación</label>
+    <textarea
+      class="form-control"
+      id="educacion"
+      formControlName="educacion"
+    ></textarea>
+    <div
+      *ngIf="
+        formGroup.get('educacion').invalid && formGroup.get('educacion').touched
+      "
+    >
+      <small
+        *ngIf="formGroup.get('educacion').errors.required"
+        class="text-danger"
+        >La educación es requerida</small
+      >
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="experiencia">Experiencia laboral</label>
+    <textarea
+      class="form-control"
+      id="experiencia"
+      formControlName="experiencia"
+    ></textarea>
+    <div
+      *ngIf="
+        formGroup.get('experiencia').invalid &&
+        formGroup.get('experiencia').touched
+      "
+    >
+      <small
+        *ngIf="formGroup.get('experiencia').errors.required"
+        class="text-danger"
+        >La experiencia laboral es requerida</small
+      >
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="habilidades">Habilidades</label>
+    <textarea
+      class="form-control"
+      id="habilidades"
+      formControlName="habilidades"
+    ></textarea>
+    <div
+      *ngIf="
+        formGroup.get('habilidades').invalid &&
+        formGroup.get('habilidades').touched
+      "
+    >
+      <small
+        *ngIf="formGroup.get('habilidades').errors.required"
+        class="text-danger"
+        >Las habilidades son requeridas</small
+      >
+    </div>
+  </div>
+  <div class="form-group d-flex justify-content-center mx-7">
+   
+
+    <button  class="btn btn-primary">Crear CV</button>
+  </div>
+</form>

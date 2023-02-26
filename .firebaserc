@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "empleosintebien": {
+      "hosting": {
+        "nobleui-angular": [
+          "empleosintebien"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "empleosintebien"
+  }
+}
