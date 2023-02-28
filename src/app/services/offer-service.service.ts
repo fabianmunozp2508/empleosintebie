@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction, DocumentReference } from '@angular/fire/compat/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  DocumentChangeAction,
+  DocumentReference,
+} from '@angular/fire/compat/firestore';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { JobOffer } from '../interfaces/offer.interfaces';
@@ -8,7 +13,7 @@ import { addDoc, collection } from 'firebase/firestore';
 import { UserService } from './usuario.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OfferServiceService {
   private jobOffersCollection: AngularFirestoreCollection<JobOffer>;
@@ -18,17 +23,22 @@ export class OfferServiceService {
   constructor(private afs: AngularFirestore, private authService: UserService) {
     this.jobOffersCollection = afs.collection<JobOffer>('josofferts');
     this.jobOffers$ = this.jobOffersCollection.snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as JobOffer;
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      }))
+      map((actions) =>
+        actions.map((a) => {
+          const data = a.payload.doc.data() as JobOffer;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
     );
   }
 
   public setUserId(userId: string) {
     this.userId = userId;
-    this.jobOffersCollection = this.afs.collection<JobOffer>('josofferts', ref => ref.where('applicants', 'array-contains', this.userId));
+    this.jobOffersCollection = this.afs.collection<JobOffer>(
+      'josofferts',
+      (ref) => ref.where('applicants', 'array-contains', this.userId)
+    );
   }
 
   public getApplicantJobOffers(): Observable<JobOffer[]> {
@@ -44,16 +54,20 @@ export class OfferServiceService {
   }
 
   public deleteApplicantJobOffer(jobOfferId: string) {
-    const jobOfferRef = this.afs.collection('josofferts').doc<JobOffer>(jobOfferId);
+    const jobOfferRef = this.afs
+      .collection('josofferts')
+      .doc<JobOffer>(jobOfferId);
     return jobOfferRef.update({
-      applicants: firebase.firestore.FieldValue.arrayRemove(this.userId)
+      applicants: firebase.firestore.FieldValue.arrayRemove(this.userId),
     });
   }
 
   getJobOfferById(jobOfferId: string) {
-    return this.afs.collection('josofferts').doc<JobOffer>(jobOfferId).valueChanges();
+    return this.afs
+      .collection('josofferts')
+      .doc<JobOffer>(jobOfferId)
+      .valueChanges();
   }
-
 
   getJobOffers(): Observable<JobOffer[]> {
     return this.jobOffers$;
@@ -65,27 +79,53 @@ export class OfferServiceService {
     return this.jobOffersCollection.add(jobOffer);
   }
 
-  applyJobOffer(jobOfferId: string, userId: string): Promise<void> {
-    const jobOfferRef = this.afs.collection('josofferts').doc<JobOffer>(jobOfferId);
-    return jobOfferRef.update({
-      applicants: firebase.firestore.FieldValue.arrayUnion(userId)
-    }).then(() => {
-      console.log('User applied successfully');
-    }).catch((error) => {
-      console.log('Error applying for job offer:', error);
-      throw error;
-    });
+  public applyJobOffer(jobOfferId: string, userId: string) {
+    const jobOfferRef = this.afs.collection('josofferts', ref => ref.where('docId', '==', jobOfferId)).doc(jobOfferId);
+
+    console.log(`Retrieving job offer: ${jobOfferId}`);
+
+    return jobOfferRef.get().toPromise()
+      .then((doc) => {
+        const jobOffer = doc.data() as JobOffer;
+
+        if (!jobOffer) {
+          console.warn(`Job offer ${jobOfferId} not found`);
+          return null;
+        }
+
+        console.log(`Job offer retrieved: ${jobOfferId}`);
+
+        if (jobOffer.applicants && jobOffer.applicants.includes(userId)) {
+          console.warn(`User ${userId} has already applied to job offer ${jobOfferId}`);
+          return null;
+        }
+
+        const updatedApplicants = jobOffer.applicants
+          ? [...jobOffer.applicants, userId]
+          : [userId];
+
+        console.log(`Updating job offer: ${jobOfferId} with applicants:`, updatedApplicants);
+
+        return jobOfferRef.update({ applicants: updatedApplicants });
+      })
+      .catch((error) => {
+        console.error(`Error applying to job offer:`, error);
+        throw error;
+      });
   }
+
+
+
 
 
   public deleteApplicantJobOfferByUser(jobOfferId: string, userId: string) {
-    const jobOfferRef = this.afs.collection('josofferts').doc<JobOffer>(jobOfferId);
+    const jobOfferRef = this.afs
+      .collection('josofferts')
+      .doc<JobOffer>(jobOfferId);
     return jobOfferRef.update({
-      applicants: firebase.firestore.FieldValue.arrayRemove(userId)
+      applicants: firebase.firestore.FieldValue.arrayRemove(userId),
     });
   }
-
-
 
   public deleteJobOffer(jobOfferId: string) {
     return this.afs.collection('josofferts').doc(jobOfferId).delete();

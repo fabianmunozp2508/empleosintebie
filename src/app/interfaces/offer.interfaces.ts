@@ -1,5 +1,5 @@
 export interface JobOffer {
-  id: string;
+ 
   userId: string;
   logo: string;
   name: string;

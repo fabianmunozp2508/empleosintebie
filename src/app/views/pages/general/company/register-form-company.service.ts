@@ -67,7 +67,7 @@ export class RegisterFormCompanyService {
 
   async updatejobOffer(josofferts: Job) {
     const data = {
-     id:josofferts.id,
+   
      logo:josofferts.logo,
      name:josofferts.name,
      descriptionCompany:josofferts.descriptionCompany,
