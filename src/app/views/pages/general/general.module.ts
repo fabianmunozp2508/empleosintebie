@@ -20,6 +20,7 @@ import { ApplicationsComponent } from './profile/applications/applications.compo
 import { CvFormComponent } from './profile/cv-form/cv-form.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RolesGuard } from 'src/app/guards/roles.guard';
+import { RegisterFormCompanyComponent } from './company/register-form-company/register-form-company.component';
 
 const routes: Routes = [
   {
@@ -58,13 +59,17 @@ const routes: Routes = [
       {
         path: 'cvform',
         component: CvFormComponent
+      },
+      {
+        path: 'registerCompany',
+        component: RegisterFormCompanyComponent
       }
     ]
   }
 ]
 
 @NgModule({
-  declarations: [GeneralComponent, BlankComponent, FaqComponent, InvoiceComponent, ProfileComponent, PricingComponent, TimelineComponent, HeaderProfileComponent, CvComponent, CompanyComponent, ApplicationsComponent, CvFormComponent],
+  declarations: [GeneralComponent, BlankComponent, FaqComponent, InvoiceComponent, ProfileComponent, PricingComponent, TimelineComponent, HeaderProfileComponent, CvComponent, CompanyComponent, ApplicationsComponent, CvFormComponent, RegisterFormCompanyComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -73,7 +78,8 @@ const routes: Routes = [
     NgbDropdownModule,
     NgbTooltipModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class GeneralModule { }

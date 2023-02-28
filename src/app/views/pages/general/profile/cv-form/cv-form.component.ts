@@ -32,10 +32,7 @@ export class CvFormComponent implements OnInit {
       this.userId = userId;
       console.log('userId', userId);
     });
-
-
     this.formGroup = this.formBuilder.group({
-
       userId: [this.userId],
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
@@ -50,7 +47,6 @@ export class CvFormComponent implements OnInit {
     });
 
   }
-
 
   disableForm() {
     this.formGroup.get('name').disable();

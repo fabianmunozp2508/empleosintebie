@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { take } from 'rxjs/operators';
 
 import {
   Auth, user,
@@ -58,12 +59,13 @@ export class RolesService {
 
   async getRoleByUserId(userId: string): Promise<Role> {
     const roleRef = this.afs.collection<Role>('roles').doc(userId);
-    const role = await roleRef.get().toPromise();
-    if (role.exists) {
-      return role.data() as Role;
+    const role = await roleRef.valueChanges().pipe(take(1)).toPromise();
+    if (role) {
+      return role;
     }
     return null;
   }
+
 
 
 }

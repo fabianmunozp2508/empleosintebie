@@ -76,6 +76,13 @@
           <span class="link-title">Soporte</span>
         </a>
       </li>
+   <li>
+    <div class="registro-empresa" *ngIf="showRegisterButton">
+      <a [routerLink]="['/general/registerCompany']" class="btn btn-block btn-primary">Regístrate como empresa</a>
+    </div>
+
+   </li>
+
     </ul>
 
     <!--- Sidemenu end -->

@@ -1,4 +1,10 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { User } from 'firebase/auth';
+import { Observable } from 'rxjs';
+import { JobOffer } from 'src/app/interfaces/offer.interfaces';
+import { OfferServiceService } from 'src/app/services/offer-service.service';
+import { UserService } from 'src/app/services/usuario.service';
+
 
 @Component({
   selector: 'app-chat',
@@ -6,32 +12,32 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit, AfterViewInit {
-
+  userId: string;
   defaultNavActiveId = 1;
+  jobOffers$: Observable<JobOffer[]>;
 
-  constructor() { }
+  constructor(private auth: UserService, private offerService: OfferServiceService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.auth.userId$.subscribe(userId => {
+      if (userId) {
+        this.userId = userId;
+        this.offerService.setUserId(userId);
+        this.jobOffers$ = this.offerService.getApplicantJobOffers();
+      }
+    });
+  }
 
   ngAfterViewInit(): void {
 
-    // Show chat-content when clicking on chat-item for tablet and mobile devices
-    document.querySelectorAll('.chat-list .chat-item').forEach(item => {
-      item.addEventListener('click', event => {
-        document.querySelector('.chat-content')!.classList.toggle('show');
-      })
-    });
-
   }
 
-  // back to chat-list for tablet and mobile devices
-  backToChatList() {
-    document.querySelector('.chat-content')!.classList.toggle('show');
+  deleteApplicantJobOffer(jobOfferId: string) {
+    this.offerService.deleteApplicantJobOffer(jobOfferId);
   }
 
-  save() {
-    console.log('passs');
-    
-  }
 
 }
+
+
+

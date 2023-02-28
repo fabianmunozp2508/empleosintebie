@@ -1,36 +1,53 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Job } from 'src/app/interfaces/job.interfaces';
+import { JobOffer } from 'src/app/interfaces/offer.interfaces';
+import { OfferServiceService } from 'src/app/services/offer-service.service';
+import { UserService } from 'src/app/services/usuario.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ofertas-empleo',
   templateUrl: './ofertas-empleo.component.html',
-  styleUrls: ['./ofertas-empleo.component.scss']
+  styleUrls: ['./ofertas-empleo.component.scss'],
 })
 export class OfertasEmpleoComponent implements OnInit {
-  jobOffers = [
-    {
-      title: 'Desarrollador web',
-      company: 'Empresa A',
-      description: 'Se requiere un desarrollador web con experiencia en Angular y NodeJS.'
-    },
-    {
-      title: 'Gerente de recursos humanos',
-      company: 'Empresa B',
-      description: 'Se requiere un gerente de recursos humanos con experiencia en gestión de equipos.'
-    },
-    {
-      title: 'Analista de negocios',
-      company: 'Empresa C',
-      description: 'Se requiere un analista de negocios con experiencia en análisis de datos y toma de decisiones.'
-    },
-    {
-      title: 'Diseñador gráfico',
-      company: 'Empresa D',
-      description: 'Se requiere un diseñador gráfico con experiencia en Adobe Creative Suite.'
-    }
-  ];
-  constructor() { }
+  jobOffers: JobOffer[];
+  userId: string;
 
-  ngOnInit(): void {
+  constructor(
+    private offerService: OfferServiceService,
+    private userService: UserService,
+  ) {}
+
+  async ngOnInit() {
+    const isUserAuthenticated = await this.userService.isAuthenticated();
+    if (isUserAuthenticated) {
+      const currentUser = await this.userService.getCurrentUser();
+      this.userId = currentUser.uid;
+    }
+    this.offerService.getJobOffers().subscribe(jobOffers => {
+      this.jobOffers = jobOffers;
+    });
   }
 
+  async applyJobOffer(jobOfferId: string) {
+    const isUserAuthenticated = await this.userService.isAuthenticated();
+    if (!isUserAuthenticated) {
+      // El usuario no está autenticado, mostrar un mensaje de error.
+      Swal.fire('Error', 'Debes estar autenticado para aplicar a una oferta', 'error');
+      return;
+    }
+
+    const currentUser = await this.userService.getCurrentUser();
+    const userId = currentUser.uid;
+
+    this.offerService.applyJobOffer(jobOfferId, userId).then(() => {
+      // La oferta fue aplicada exitosamente, mostrar un mensaje de éxito.
+      Swal.fire('Éxito', 'La oferta fue aplicada exitosamente', 'success');
+    }).catch((error) => {
+      // Ocurrió un error al aplicar la oferta, mostrar un mensaje de error.
+      Swal.fire('Error', `No se pudo aplicar la oferta: ${error.message}`, 'error');
+    });
+  }
 }

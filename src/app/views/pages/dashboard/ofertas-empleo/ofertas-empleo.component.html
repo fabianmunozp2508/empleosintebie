@@ -1,43 +1,36 @@
-<!-- <div class="container">
-  <div class="row">
-    <div class="col-12 col-sm-6 col-md-4" *ngFor="let offer of jobOffers">
-      <div class="card my-3">
-        <div class="card-body">
-          <h5 class="card-title">{{offer.title}}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{offer.company}}</h6>
-          <p class="card-text">{{offer.description}}</p>
-          <a href="#" class="card-link">Ver oferta</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>-->
 <div class="row">
-  <div class="col-md-6 grid-margin stretch-card" *ngFor="let offer of jobOffers">
-    <div class="card">
+  <div class="col-md-6 mb-4" *ngFor="let offer of jobOffers">
+    <div class="card w-100">
       <div class="card-body">
-        <h6 class="card-title">{{offer.title}}</h6>
-
-        <div class="ng-select-container">
-          <div class="ng-value-container">
-            <div class="ng-placeholder"></div>
-            <div
-              role="combobox"
-              aria-haspopup="listbox"
-              class="ng-input"
-              aria-expanded="false"
-            >
-            <h6 class="card-subtitle mb-2 text-muted">{{offer.company}}</h6>
-            </div>
+        <div class="row align-items-center">
+          <div class="col-2">
+            <img src="{{offer.logo}}" class="rounded-circle mx-5" alt="Logo de la empresa" width="50" height="50">
           </div>
-          <span class="ng-arrow-wrapper">
-            <span class="ng-arrow"></span>
-          </span>
+          <div class="col-10">
+            <h5 class="card-title font-weight-bold text-center mx-7">{{offer.name}}</h5>
+          </div>
         </div>
-        <p class="card-text">{{offer.description}}</p>
-        <a href="#" class="card-link">aplicar </a>
+        <hr>
+        <div class="row">
+          <div class="col-6">
+            <h6 class="font-weight-bold">Descripción</h6>
+            <p class="card-text">{{offer.description}}</p>
+            <h6 class="font-weight-bold">Posición</h6>
+            <p class="card-text">{{offer.position}}</p>
+            <h6 class="font-weight-bold">Departamento</h6>
+            <p class="card-text">{{offer.department}}</p>
+          </div>
+          <div class="col-6">
+            <h6 class="font-weight-bold">Ubicación</h6>
+            <p class="card-text">{{offer.location}}</p>
+            <h6 class="font-weight-bold">Salario</h6>
+            <p class="card-text">{{offer.salary}}</p>
+            <h6 class="font-weight-bold">Descripción del puesto</h6>
+            <p class="card-text">{{offer.jobDescription}}</p>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-block mt-3" (click)="offerService.applyJobOffer(offer.id)">Aplicar oferta</button>
       </div>
     </div>
   </div>
-
 </div>

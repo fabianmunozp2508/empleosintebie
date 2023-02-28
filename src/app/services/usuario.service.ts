@@ -78,7 +78,7 @@ export class UserService {
     const user = await this.auth.currentUser;
     return user;
   }
-  
+
   logout() {
     signOut(this.auth);
     localStorage.removeItem('isLoggedin');
@@ -104,6 +104,9 @@ export class UserService {
     this.usuario = this.auth.currentUser;
     this.setUserId(this.usuario.uid);
   }
-
+  public async getUserId(): Promise<string> {
+    const user = await this.auth.currentUser;
+    return user?.uid;
+  }
 
 }

@@ -1,0 +1,157 @@
+<h2 class="text-center">Registra tu empresa</h2>
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="my-5">
+  <div class="form-group mb-3">
+    <div class="form-row">
+      <div class="col-md-6">
+        <label for="country">País de la empresa</label>
+        <input
+          type="text"
+          formControlName="country"
+          id="country"
+          required
+          class="form-control w-100"
+        />
+        <div
+          class="error-message"
+          *ngIf="
+            contactForm.get('country').touched &&
+            contactForm.get('country').hasError('required')
+          "
+        >
+          País de la empresa es requerido
+        </div>
+      </div>
+      <div class="col-md-6 mx-5">
+        <label for="nic">NIC de la empresa</label>
+        <input
+          type="text"
+          formControlName="nic"
+          id="nic"
+          required
+          class="form-control w-100"
+        />
+        <div
+          class="error-message"
+          *ngIf="
+            contactForm.get('nic').touched &&
+            contactForm.get('nic').hasError('required')
+          "
+        >
+          NIC de la empresa es requerido
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="name">Nombre</label>
+    <input type="text" formControlName="name" id="name" required />
+    <div
+      class="error-message"
+      *ngIf="
+        contactForm.get('name').touched &&
+        contactForm.get('name').hasError('required')
+      "
+    >
+      Nombre es requerido
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Correo electrónico</label>
+    <input type="email" formControlName="email" id="email" required />
+    <div
+      class="error-message"
+      *ngIf="
+        contactForm.get('email').touched &&
+        contactForm.get('email').hasError('required')
+      "
+    >
+      Correo electrónico es requerido
+    </div>
+    <div
+      class="error-message"
+      *ngIf="
+        contactForm.get('email').touched &&
+        contactForm.get('email').hasError('email')
+      "
+    >
+      Correo electrónico no es válido
+    </div>
+    <div
+      class="error-message"
+      *ngIf="
+        contactForm.get('email').touched &&
+        contactForm.get('email').hasError('invalidEmailProvider')
+      "
+    >
+      Correo electrónico debe ser empresarial
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="phone">Teléfono</label>
+    <input type="text" formControlName="phone" id="phone" required />
+    <div
+      class="error-message"
+      *ngIf="
+        contactForm.get('phone').touched &&
+        contactForm.get('phone').hasError('required')
+      "
+    >
+      Teléfono es requerido
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="logo">Logo de la compañía</label>
+    <div class="custom-file">
+      <input
+        type="file"
+        class="custom-file-input"
+        *ngIf="!logoFile"
+        accept=".png,.jpg,.jpeg"
+        (change)="handleLogoChange($event)"
+        required
+        id="logo"
+      />
+      <label class="custom-file-label" for="logo" ></label>
+      <div *ngIf="logoFile" class="d-block "><br>
+        <span>{{ logoFile.name }}</span>
+        <button type="button" (click)="removeLogo()">Borrar</button>
+      </div>
+      <div *ngIf="!logoFile">
+        <span>No se ha seleccionado ninguna imagen</span>
+      </div>
+    </div>
+    <div
+      class="error-message"
+      *ngIf="
+        contactForm.get('logo').touched &&
+        contactForm.get('logo').hasError('required')
+      "
+    >
+      Logo de la compañía es requerido
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="contactInfo">Datos básicos del contacto</label>
+    <textarea
+      formControlName="contactInfo"
+      id="contactInfo"
+      required
+    ></textarea>
+    <div
+      class="error-message"
+      *ngIf="
+        contactForm.get('contactInfo').touched &&
+        contactForm.get('contactInfo').hasError('required')
+      "
+    >
+      Datos básicos del contacto son requeridos
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
