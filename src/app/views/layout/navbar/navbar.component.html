@@ -13,10 +13,10 @@
     </form>
     <ul class="navbar-nav">
       <li class="nav-item" ngbDropdown>
-        <a class="nav-link" ngbDropdownToggle id="languageDropdown" role="button">
+        <!-- <a class="nav-link" ngbDropdownToggle id="languageDropdown" role="button">
           <img src="assets/images/flags/us.svg" class="wd-20 me-1" title="us" alt="us">
           <span class="fw-bold ms-1 me-1 d-none d-md-inline-block">English</span>
-        </a>
+        </a> -->
         <div ngbDropdownMenu aria-labelledby="languageDropdown">
           <a ngbDropdownItem class="py-2"> <img src="assets/images/flags/us.svg" class="wd-20 me-1" title="us" alt="us"> <span class="ms-1"> English </span></a>
           <a ngbDropdownItem class="py-2"> <img src="assets/images/flags/fr.svg" class="wd-20 me-1" title="fr" alt="fr"> <span class="ms-1"> French </span></a>
@@ -32,24 +32,24 @@
         <div ngbDropdownMenu class="px-0" aria-labelledby="appsDropdown">
           <div class="px-3 py-2 d-flex align-items-center justify-content-between border-bottom">
             <p class="mb-0 fw-bold">Web Apps</p>
-            <a href="javascript:;" class="text-muted">Edit</a>
+            <a href="javascript:;" class="text-muted">Editar</a>
           </div>
           <div class="row g-0 p-1">
             <div class="col-3 text-center">
               <a routerLink="/apps/chat" class="dropdown-item d-flex flex-column align-items-center justify-content-center wd-70 ht-70"><i class="feather icon-message-square icon-lg mb-1"></i><p class="tx-12">Chat</p></a>
             </div>
             <div class="col-3 text-center">
-              <a routerLink="/apps/calendar" class="dropdown-item d-flex flex-column align-items-center justify-content-center wd-70 ht-70"><i class="feather icon-calendar icon-lg mb-1"></i><p class="tx-12">Calendar</p></a>
+              <a routerLink="/apps/calendar" class="dropdown-item d-flex flex-column align-items-center justify-content-center wd-70 ht-70"><i class="feather icon-calendar icon-lg mb-1"></i><p class="tx-12">Calendario</p></a>
             </div>
             <div class="col-3 text-center">
               <a routerLink="/apps/email/inbox" class="dropdown-item d-flex flex-column align-items-center justify-content-center wd-70 ht-70"><i class="feather icon-mail icon-lg mb-1"></i><p class="tx-12">Email</p></a>
             </div>
             <div class="col-3 text-center">
-              <a routerLink="/general/profile" class="dropdown-item d-flex flex-column align-items-center justify-content-center wd-70 ht-70"><i class="feather icon-instagram icon-lg mb-1"></i><p class="tx-12">Profile</p></a>
+              <a routerLink="/general/profile" class="dropdown-item d-flex flex-column align-items-center justify-content-center wd-70 ht-70"><i class="feather icon-instagram icon-lg mb-1"></i><p class="tx-12">Perfil</p></a>
             </div>
           </div>
           <div class="px-3 py-2 d-flex align-items-center justify-content-center border-top">
-            <a href="" (click)="false">View all</a>
+            <a href="" (click)="false">Ver todo</a>
           </div>
         </div>
       </li>
@@ -59,8 +59,8 @@
         </a>
         <div ngbDropdownMenu class="px-0" aria-labelledby="messageDropdown">
           <div class="px-3 py-2 d-flex align-items-center justify-content-between border-bottom">
-            <p>9 New Messages</p>
-            <a href="" (click)="false" class="text-muted">Clear all</a>
+            <p>9 Nuevos mendajes</p>
+            <a href="" (click)="false" class="text-muted">Limpiar todo</a>
           </div>
           <div class="p-1">
             <a href="" (click)="false" class="dropdown-item d-flex align-items-center py-2">
@@ -70,7 +70,7 @@
               <div class="d-flex justify-content-between flex-grow-1">
                 <div class="me-4">
                   <p>Leonardo Payne</p>
-                  <p class="tx-12 text-muted">Project status</p>
+                  <p class="tx-12 text-muted">Estado del proyecto</p>
                 </div>
                 <p class="tx-12 text-muted">2 min ago</p>
               </div>
@@ -118,7 +118,7 @@
               <div class="d-flex justify-content-between flex-grow-1">
                 <div class="me-4">
                   <p>Yaretzi Mayo</p>
-                  <p class="tx-12 text-muted">New record</p>
+                  <p class="tx-12 text-muted">Nuevo record</p>
                 </div>
                 <p class="tx-12 text-muted">5 hrs ago</p>
               </div>
@@ -189,7 +189,7 @@
             </a>
           </div>
           <div class="px-3 py-2 d-flex align-items-center justify-content-center border-top">
-            <a href="" (click)="false">View all</a>
+            <a href="" (click)="false">Ver todo</a>
           </div>
         </div>
       </li>
@@ -211,13 +211,13 @@
             <li class="dropdown-item py-2">
               <a routerLink="/general/profile" class="d-flex text-body ms-0">
                 <i class="feather icon-user me-2 icon-md"></i>
-                <span>Profile</span>
+                <span>Perfil</span>
               </a>
             </li>
             <li class="dropdown-item py-2">
               <a href="" (click)="onLogout($event)" class="d-flex text-body ms-0">
                 <i class="feather icon-log-out me-2 icon-md"></i>
-                <span>Log Out</span>
+                <span>Salir</span>
               </a>
             </li>
           </ul>
