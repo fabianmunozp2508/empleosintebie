@@ -3,50 +3,43 @@
     <div class="card">
       <div class="row">
         <div class="col-md-4 pe-md-0">
-          <div
-            class="auth-side-wrapper"
-            [ngStyle]="{
-              'background-image': 'url(https://via.placeholder.com/219x452)'
-            }"
-          ></div>
+          <div class="auth-side-wrapper" [ngStyle]="{'background-image': 'url(/assets/images/others/219x452.png)'}"></div>
         </div>
         <div class="col-md-8 ps-md-0">
           <div class="auth-form-wrapper px-4 py-5">
-            <a routerLink="." class="nobleui-logo d-block mb-2"
-              >Noble<span>UI</span></a
-            >
+            <a routerLink="." class="nobleui-logo d-block mb-2" style="color: #FFB600;">Empleate<span class="mx-2" style="color: darkblue; background-color: transparent;">INTEBIEN</span></a>
             <h5 class="text-muted fw-normal mb-4">
-              Welcome back! Log in to your account.
+              Bienvenido a la plataforma de emplos de INTEBIEN
             </h5>
             <form [formGroup]="formGroup" (ngSubmit)="onLoggedin($event)" class="forms-sample">
               <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <label for="exampleInputEmail1" class="form-label">Email</label>
                 <input type="email" class="form-control" id="emailInput" placeholder="Email" formControlName="email">
                 <div *ngIf="formGroup?.get('email')?.invalid && formGroup?.get('email')?.touched" class="text-danger">
-                  Email is required
+                 El Email es requerido
                 </div>
               </div>
               <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <label for="exampleInputPassword1" class="form-label">Contraseña</label>
                 <input type="password" class="form-control" id="passwordInput" autocomplete="current-password" placeholder="Password" formControlName="password">
                 <div *ngIf="formGroup?.get('password')?.invalid && formGroup?.get('password')?.touched" class="text-danger">
-                  Password is required
+                  Password es requerido
                 </div>
               </div>
               <div class="form-check mb-3">
                 <input type="checkbox" class="form-check-input" id="authCheck">
-                <label class="form-check-label" for="authCheck">Remember me</label>
+                <label class="form-check-label" for="authCheck">Recordar sección</label>
               </div>
               <div>
                 <button type="submit" class="btn btn-primary me-2 mb-2 mb-md-0" [disabled]="formGroup.invalid">
-                  Login
+                  Acceso
                 </button>
                 <button type="button" class="btn btn-outline-primary btn-icon-text mb-2 mb-md-0" (click)="loginWithGoogle()">
                   <i class="feather icon-google bbtn-icon-prepend"></i>
                   Ingresa con Google
                 </button>
               </div>
-              <a routerLink="/auth/register" class="d-block mt-3 text-muted">Not a user? Sign up</a>
+              <a routerLink="/auth/register" class="d-block mt-3 text-muted">¿No esta registrado? inscribase aquí</a>
             </form>
 
           </div>
