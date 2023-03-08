@@ -1,5 +1,8 @@
+import { Firestore } from "@angular/fire/firestore";
+
 export interface Job {
- 
+
+  id:string;
   userId: string;
   logo: string;
   name: string;

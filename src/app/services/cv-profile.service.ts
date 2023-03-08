@@ -47,7 +47,6 @@ export class CvProfileService {
   }
 
   addcvprofile(cvprofiles: CvProfiles) {
-
     const cvprofileRef = collection(this.firestore, 'cvprofiles');
     cvprofiles.userId = this.auth.currentUser.uid;
     return addDoc(cvprofileRef, cvprofiles);

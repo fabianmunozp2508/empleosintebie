@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/comp
 import { take } from 'rxjs/operators';
 
 import {
-  Auth, user,
+  Auth, User, user,
 
 } from '@angular/fire/auth';
 import 'firebase/firestore';
@@ -20,6 +20,7 @@ export class RolesService {
 
   constructor(private firestore: AngularFirestore, private auth: Auth,  private userService: UserService, private afs: AngularFirestore) {
     this.rolesCollection = firestore.collection<Role>('roles');
+
   }
 
   async assignRole(userId: string, role: string): Promise<void> {
@@ -65,6 +66,28 @@ export class RolesService {
     }
     return null;
   }
+  async getUsersByRole(role: string): Promise<User[]> {
+    const rolesSnapshot = await this.rolesCollection.get().toPromise();
+    const usersWithRole: User[] = [];
+    rolesSnapshot.forEach(async doc => {
+      const roleData = doc.data() as Role;
+      if (roleData.role === role) {
+        const userId = doc.id;
+        const userData = await this.userService.getUser(userId);
+        usersWithRole.push(userData);
+      }
+    });
+    return usersWithRole;
+  }
+
+
+
+
+
+
+
+
+
 
 
 

@@ -12,14 +12,15 @@ import {
   sendPasswordResetEmail,
   User,
 } from '@angular/fire/auth';
-import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { Subject } from 'rxjs';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { Subject, take } from 'rxjs';
 import { Profile } from '../interfaces/profile';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+
   private usersCollection: AngularFirestoreCollection<User>;
   private userId = new Subject<string>();
 
@@ -33,7 +34,9 @@ export class UserService {
   usuario: any = {};
   public mostrar: boolean = false;
 
-  constructor(private auth: Auth) {
+  constructor(private auth: Auth, private afs: AngularFirestore) {
+    this.usersCollection = this.afs.collection<User>('users');
+
     const auth2 = getAuth();
     onAuthStateChanged(auth2, (user) => {
       if (user) {
@@ -44,6 +47,9 @@ export class UserService {
       }
     });
   }
+
+
+
 
   register({ email, password }: any) {
     return createUserWithEmailAndPassword(this.auth, email, password);
@@ -108,5 +114,12 @@ export class UserService {
     const user = await this.auth.currentUser;
     return user?.uid;
   }
+
+  async getUser(userId: string): Promise<User> {
+    const userRef = this.usersCollection.doc(userId);
+    const user = await userRef.get().toPromise();
+    return user.data() as User;
+  }
+
 
 }

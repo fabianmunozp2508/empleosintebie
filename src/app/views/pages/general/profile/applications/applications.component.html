@@ -1,105 +1,108 @@
-<div class="row">
-  <div class="col-md-12 grid-margin">
-    <div class="card rounded">
-      <div class="card-header">
-        <div class="d-flex align-items-center justify-content-between">
-          <div class="d-flex align-items-center">
-            <img
-              class="img-xs rounded-circle"
-              src="https://via.placeholder.com/37x37"
-              alt=""
-            />
-            <div class="ms-2">
-              <p>Mike Popescu</p>
-              <p class="tx-11 text-muted">1 min ago</p>
-            </div>
-          </div>
-          <div ngbDropdown>
-            <button
-              class="btn p-0 no-dropdown-toggle-icon"
-              type="button"
-              id="dropdownMenuButton2"
-              ngbDropdownToggle
-            >
-              <i class="feather icon-more-horizontal icon-lg pb-3px"></i>
-            </button>
-            <div ngbDropdownMenu aria-labelledby="dropdownMenuButton2">
-              <a
-                ngbDropdownItem
-                class="d-flex align-items-center"
-                href=""
-                (click)="(false)"
-                ><i class="feather icon-meh icon-sm me-2"></i>
-                <span class="">Unfollow</span></a
-              >
-              <a
-                ngbDropdownItem
-                class="d-flex align-items-center"
-                href=""
-                (click)="(false)"
-                ><i class="feather icon-corner-right-up icon-sm me-2"></i>
-                <span class="">Go to post</span></a
-              >
-              <a
-                ngbDropdownItem
-                class="d-flex align-items-center"
-                href=""
-                (click)="(false)"
-                ><i class="feather icon-share-2 icon-sm me-2"></i>
-                <span class="">Share</span></a
-              >
-              <a
-                ngbDropdownItem
-                class="d-flex align-items-center"
-                href=""
-                (click)="(false)"
-                ><i class="feather icon-copy icon-sm me-2"></i>
-                <span class="">Copy link</span></a
-              >
-            </div>
-          </div>
+<div class="card rounded">
+  <div class="card-header">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center">
+        <img class="img-xs rounded-circle" [src]="user.photoURL" alt="" />
+        <div class="ms-2">
+          <p>{{ user.displayName }}</p>
+          <p class="tx-11 text-muted" *ngIf="post">
+            {{ post.date | date : "short" }}
+          </p>
         </div>
       </div>
-      <div class="card-body">
-        <p class="mb-3 tx-14">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          Accusamus minima delectus nemo unde quae recusandae assumenda.
-        </p>
-        <img
-          class="img-fluid"
-          src="https://via.placeholder.com/513x342"
-          alt=""
-        />
-      </div>
-      <div class="card-footer">
-        <div class="d-flex post-actions">
-          <a
-            href=""
-            (click)="(false)"
-            class="d-flex align-items-center text-muted me-4"
-          >
-            <i class="feather icon-heart icon-md"></i>
-            <p class="d-none d-md-block ms-2">Like</p>
-          </a>
-          <a
-            href=""
-            (click)="(false)"
-            class="d-flex align-items-center text-muted me-4"
-          >
-            <i class="feather icon-message-square icon-md"></i>
-            <p class="d-none d-md-block ms-2">Comment</p>
-          </a>
-          <a
-            href=""
-            (click)="(false)"
-            class="d-flex align-items-center text-muted"
-          >
-            <i class="feather icon-share icon-md"></i>
-            <p class="d-none d-md-block ms-2">Share</p>
-          </a>
+      <button class="btn btn-primary" (click)="openModal(content)">
+        Subir publicación
+      </button>
+    </div>
+  </div>
+  <div class="card-body" *ngIf="post">
+    <p class="mb-3 tx-14">{{ post.content }}</p>
+    <img *ngIf="post.imageURL" class="img-fluid" [src]="post.imageURL" alt="" />
+  </div>
+
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Crear nueva publicación</h5>
+    <button type="button" class="close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="title">Título</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        [(ngModel)]="newPost.title"
+      />
+    </div>
+    <div class="form-group">
+      <label for="content">Contenido</label>
+      <textarea
+        class="form-control"
+        id="content"
+        rows="3"
+        [(ngModel)]="newPost.content"
+      ></textarea>
+    </div>
+    <div class="form-group">
+      <label for="image">Imagen</label>
+      <input
+        type="file"
+        class="form-control-file"
+        id="image"
+        (change)="onFileSelected($event)"
+      />
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="modal.dismiss('Close click')"
+    >
+      Cerrar
+    </button>
+    <button type="button" class="btn btn-primary" (click)="createPost()">
+      Crear publicación
+    </button>
+  </div>
+</ng-template>
+ <br>
+ <div *ngFor="let post of posts">
+ <div class="card rounded my-5" >
+  <div class="card-header">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center">
+        <img class="img-xs rounded-circle" [src]="user.photoURL" alt="">
+        <div class="ms-2">
+          <p>{{ user.displayName }}</p>
+          <p class="tx-11 text-muted">{{ post.date | date: 'short' }}</p>
         </div>
       </div>
     </div>
   </div>
- 
+    <p class="mb-3 tx-14 mx-3 my-2">{{ post.title }}</p>
+    <p class="mb-3 tx-14 mx-3">{{ post.content }}</p>
+    <div [style.background-image]="'url(' + post.imageURL + ')'" style="background-size: cover; height: 300px; width: 100%;"></div>
+   <br>
+   <div class="card-footer">
+    <div class="d-flex post-actions">
+      <a href="" (click)="likePost(post.id)" class="d-flex align-items-center text-muted me-4">
+        <i class="feather icon-heart icon-md"></i>
+        <p class="d-none d-md-block ms-2">Like</p>
+      </a>
+      <a href="" (click)="deletePost(post.id)" class="d-flex align-items-center text-muted me-4">
+        <i class="feather icon-trash-2 icon-md"></i>
+        <p class="d-none d-md-block ms-2">Eliminar</p>
+      </a>
+    </div>
+    <p class="tx-12 text-muted mt-2"> Likes</p>
+  </div>
+  </div>
+
 </div>
+

@@ -1,66 +1,15 @@
 <div class="card rounded">
   <div class="card-body">
-    <h6 class="card-title">suggestions for you</h6>
-    <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
-      <div class="d-flex align-items-center hover-pointer">
-        <img class="img-xs rounded-circle" src="https://via.placeholder.com/37x37" alt="">
-        <div class="ms-2">
-          <p>Mike Popescu</p>
-          <p class="tx-11 text-muted">12 Mutual Friends</p>
+    <h6 class="card-title">Empresas Sugeridas</h6>
+    <ng-container *ngFor="let offer of jobOffers">
+      <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
+        <div class="d-flex align-items-center hover-pointer">
+          <img class="img-xs rounded-circle" src="{{offer.logo}}" alt="Logo de la empresa">
+          <div class="ms-2">
+            <p>{{offer.name}}</p>
+          </div>
         </div>
       </div>
-      <button class="btn btn-icon"><i class="feather icon-user-plus" ngbTooltip="Connect"></i></button>
-    </div>
-    <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
-      <div class="d-flex align-items-center hover-pointer">
-        <img class="img-xs rounded-circle" src="https://via.placeholder.com/37x37" alt="">
-        <div class="ms-2">
-          <p>Mike Popescu</p>
-          <p class="tx-11 text-muted">12 Mutual Friends</p>
-        </div>
-      </div>
-      <button class="btn btn-icon"><i class="feather icon-user-plus" ngbTooltip="Connect"></i></button>
-    </div>
-    <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
-      <div class="d-flex align-items-center hover-pointer">
-        <img class="img-xs rounded-circle" src="https://via.placeholder.com/37x37" alt="">
-        <div class="ms-2">
-          <p>Mike Popescu</p>
-          <p class="tx-11 text-muted">12 Mutual Friends</p>
-        </div>
-      </div>
-      <button class="btn btn-icon"><i class="feather icon-user-plus" ngbTooltip="Connect"></i></button>
-    </div>
-    <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
-      <div class="d-flex align-items-center hover-pointer">
-        <img class="img-xs rounded-circle" src="https://via.placeholder.com/37x37" alt="">
-        <div class="ms-2">
-          <p>Mike Popescu</p>
-          <p class="tx-11 text-muted">12 Mutual Friends</p>
-        </div>
-      </div>
-      <button class="btn btn-icon"><i class="feather icon-user-plus" ngbTooltip="Connect"></i></button>
-    </div>
-    <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
-      <div class="d-flex align-items-center hover-pointer">
-        <img class="img-xs rounded-circle" src="https://via.placeholder.com/37x37" alt="">
-        <div class="ms-2">
-          <p>Mike Popescu</p>
-          <p class="tx-11 text-muted">12 Mutual Friends</p>
-        </div>
-      </div>
-      <button class="btn btn-icon"><i class="feather icon-user-plus" ngbTooltip="Connect"></i></button>
-    </div>
-    <div class="d-flex justify-content-between">
-      <div class="d-flex align-items-center hover-pointer">
-        <img class="img-xs rounded-circle" src="https://via.placeholder.com/37x37" alt="">
-        <div class="ms-2">
-          <p>Mike Popescu</p>
-          <p class="tx-11 text-muted">12 Mutual Friends</p>
-        </div>
-      </div>
-      <button class="btn btn-icon"><i class="feather icon-user-plus" ngbTooltip="Connect"></i></button>
-    </div>
-
+    </ng-container>
   </div>
 </div>

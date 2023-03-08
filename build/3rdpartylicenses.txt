@@ -60,13 +60,22 @@ Apache-2.0
 @firebase/app-check
 Apache-2.0
 
+@firebase/app-compat
+Apache-2.0
+
 @firebase/auth
+Apache-2.0
+
+@firebase/auth-compat
 Apache-2.0
 
 @firebase/component
 Apache-2.0
 
 @firebase/firestore
+Apache-2.0
+
+@firebase/firestore-compat
 Apache-2.0
 
 @firebase/installations
@@ -79,6 +88,12 @@ Apache-2.0
 Apache-2.0
 
 @firebase/remote-config
+Apache-2.0
+
+@firebase/storage
+Apache-2.0
+
+@firebase/storage-compat
 Apache-2.0
 
 @firebase/util
@@ -525,6 +540,14 @@ firebase/app-check
 
 firebase/auth
 
+firebase/compat/app
+
+firebase/compat/auth
+
+firebase/compat/firestore
+
+firebase/compat/storage
+
 firebase/firestore
 
 firebase/messaging
@@ -851,6 +874,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+
+rxfire/firestore
 
 rxjs
 Apache-2.0

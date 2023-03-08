@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { RolesService } from 'src/app/services/roles.service';
+
+
 
 @Component({
   selector: 'app-blank',
@@ -6,10 +9,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./blank.component.scss']
 })
 export class BlankComponent implements OnInit {
+  users: any[];
 
-  constructor() { }
+  constructor(private rolesServicee: RolesService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.rolesServicee.getUsersByRole('Aspirante').then(users => {
+      this.users = users;
+      console.log("usuarios Aspitante ",this.users);
+    });
+
+
   }
 
 }
