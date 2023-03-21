@@ -1,0 +1,21 @@
+<form>
+  <div class="form-group">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" #searchInput (input)="buscar(searchInput.value)" placeholder="Buscar...">
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="submit" [disabled]="searchInput.value.length < 4" (click)="buscar(searchInput.value)">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div *ngIf="resultados.length > 0">
+  <div *ngFor="let resultado of resultados">
+    <p>{{ resultado }}</p>
+  </div>
+</div>
+<div *ngIf="resultados.length === 0">
+  <p>No se encontraron resultados</p>
+</div>

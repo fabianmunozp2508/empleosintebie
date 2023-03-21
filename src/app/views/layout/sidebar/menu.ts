@@ -14,6 +14,7 @@ export const MENU: MenuItem[] = [
     label: 'Usuario',
     isTitle: true
   },
+
   // {
   //   label: 'Mensajes',
   //   icon: 'mail',
@@ -42,6 +43,7 @@ export const MENU: MenuItem[] = [
     icon: 'file-text',
     link: '/general/profile',
   },
+
   {
     label: 'Calendar',
     icon: 'calendar',
@@ -51,6 +53,11 @@ export const MENU: MenuItem[] = [
       text: 'Event',
     }
   },
+  // {
+  //   label: 'Buscador',
+  //   icon: 'file-text',
+  //   link: '/general/buscador',
+  // },
   {
     label: 'Empresas',
     isTitle: true
@@ -301,10 +308,7 @@ export const MENU: MenuItem[] = [
         label: 'Vacantes Activas',
         link: '/general/invoice',
       },
-      {
-        label: 'Vacantes completadas ',
-        link: '/general/profile',
-      },
+
 
       {
         label: 'Usuarios baneados',

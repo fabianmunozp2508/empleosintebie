@@ -9,6 +9,7 @@ import { UserService } from 'src/app/services/usuario.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+
   photoURL: string;
   displayName: string;
   email: string;
@@ -32,7 +33,7 @@ export class NavbarComponent implements OnInit {
     e.preventDefault();
     this.document.body.classList.toggle('sidebar-open');
   }
-
+  
   /**
    * Logout
    */

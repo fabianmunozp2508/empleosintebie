@@ -30,7 +30,8 @@ export class CvProfileService {
   private itemsCollection: AngularFirestoreCollection<any>;
   public cvprofiles: CvProfiles; //
   usuarios: any = {};
-  constructor(private firestore: Firestore, private auth: Auth) {
+  constructor(private firestore: Firestore, private auth: Auth, ) {
+
     const auth2 = getAuth();
     onAuthStateChanged(auth2, (user) => {
       if (user) {
@@ -66,6 +67,12 @@ export class CvProfileService {
       return of([]);
     }
   }
+
+  getAllCvProfiles(): Observable<CvProfiles[]> {
+    const cvprofilesRef = collection(this.firestore, 'cvprofiles');
+    return collectionData(cvprofilesRef, { idField: 'id' }) as Observable<CvProfiles[]>;
+  }
+
   async updatecvprofile(cvprofiles: CvProfiles) {
     const data = {
       name: cvprofiles.name,
@@ -87,6 +94,9 @@ export class CvProfileService {
     console.log("cvprofiles", cvprofiles.userId)
 
     }
+
+
+
 
 }
 

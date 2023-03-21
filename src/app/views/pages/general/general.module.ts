@@ -1,9 +1,11 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { FeatherIconModule } from '../../../core/feather-icon/feather-icon.module';
-
-import { NgbAccordionModule, NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbAccordionModule,
+  NgbDropdownModule,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
 
 import { GeneralComponent } from './general.component';
 import { BlankComponent } from './blank/blank.component';
@@ -19,8 +21,9 @@ import { CompanyComponent } from './profile/company/company.component';
 import { ApplicationsComponent } from './profile/applications/applications.component';
 import { CvFormComponent } from './profile/cv-form/cv-form.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { RolesGuard } from 'src/app/guards/roles.guard';
 import { RegisterFormCompanyComponent } from './company/register-form-company/register-form-company.component';
+import { BuscadorComponent } from './buscador/buscador.component';
+import { LayoutModule } from '../../layout/layout.module';
 
 const routes: Routes = [
   {
@@ -30,19 +33,19 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: 'blank-page',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'blank-page',
-        component: BlankComponent
+        component: BlankComponent,
       },
       {
         path: 'faq',
-        component: FaqComponent
+        component: FaqComponent,
       },
       {
         path: 'invoice',
-        component: InvoiceComponent
+        component: InvoiceComponent,
       },
       {
         path: 'profile',
@@ -50,26 +53,45 @@ const routes: Routes = [
       },
       {
         path: 'pricing',
-        component: PricingComponent
+        component: PricingComponent,
       },
       {
         path: 'timeline',
-        component: TimelineComponent
+        component: TimelineComponent,
       },
       {
         path: 'cvform',
-        component: CvFormComponent
+        component: CvFormComponent,
       },
+      // {
+      //   path: 'buscador',
+      //   component: BuscadorComponent,
+      // },
       {
         path: 'registerCompany',
-        component: RegisterFormCompanyComponent
-      }
-    ]
-  }
-]
+        component: RegisterFormCompanyComponent,
+      },
+    ],
+  },
+];
 
 @NgModule({
-  declarations: [GeneralComponent, BlankComponent, FaqComponent, InvoiceComponent, ProfileComponent, PricingComponent, TimelineComponent, HeaderProfileComponent, CvComponent, CompanyComponent, ApplicationsComponent, CvFormComponent, RegisterFormCompanyComponent],
+  declarations: [
+    GeneralComponent,
+    BlankComponent,
+    FaqComponent,
+    InvoiceComponent,
+    ProfileComponent,
+    PricingComponent,
+    TimelineComponent,
+    HeaderProfileComponent,
+    CvComponent,
+    CompanyComponent,
+    ApplicationsComponent,
+    CvFormComponent,
+    RegisterFormCompanyComponent,
+    BuscadorComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -79,7 +101,8 @@ const routes: Routes = [
     NgbTooltipModule,
     ReactiveFormsModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+
+  ],
 })
-export class GeneralModule { }
+export class GeneralModule {}

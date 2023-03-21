@@ -12,7 +12,10 @@ import {
   sendPasswordResetEmail,
   User,
 } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from '@angular/fire/compat/firestore';
 import { Subject, take } from 'rxjs';
 import { Profile } from '../interfaces/profile';
 
@@ -20,7 +23,6 @@ import { Profile } from '../interfaces/profile';
   providedIn: 'root',
 })
 export class UserService {
-
   private usersCollection: AngularFirestoreCollection<User>;
   private userId = new Subject<string>();
 
@@ -47,9 +49,6 @@ export class UserService {
       }
     });
   }
-
-
-
 
   register({ email, password }: any) {
     return createUserWithEmailAndPassword(this.auth, email, password);
@@ -121,5 +120,34 @@ export class UserService {
     return user.data() as User;
   }
 
+  async deleteUser(userId: string): Promise<void> {
+    try {
+      const currentUser = await this.auth.currentUser;
+      if (userId === currentUser.uid) {
+        throw new Error('No puedes borrarte a ti mismo');
+      }
+      const userRef = this.usersCollection.doc(userId);
+      await userRef.delete();
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
+  async blockUser(userId: string) {
+    try {
+      const currentUser = await this.auth.currentUser;
+      if (userId === currentUser.uid) {
+        throw new Error('No puedes bloquearte a ti mismo');
+      }
+      const userRef = this.usersCollection.doc(userId);
+      const blockedUserRef = this.afs.collection('blockedUsers').doc(userId);
+      const currentDate = new Date();
+      await blockedUserRef.set({
+        userId,
+        blockedAt: currentDate,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }

@@ -5,8 +5,15 @@ import { AuthGuard } from './core/guard/auth.guard';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
 import { CvFormComponent } from './views/pages/general/profile/cv-form/cv-form.component';
 import { AuthorizationGuard } from './guards/auth.guard';
+import { InicioComponent } from './views/pages/inicio/inicio.component';
 
 const routes: Routes = [
+
+  {
+    path: 'empleo',
+    component: InicioComponent
+  },
+  { path: '', redirectTo: 'empleo', pathMatch: 'full' },
   {
     path: 'auth',
     loadChildren: () =>
@@ -84,7 +91,7 @@ const routes: Routes = [
           ),
 
       },
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+
 
       // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
     ],
@@ -98,6 +105,9 @@ const routes: Routes = [
       desc: "Oopps!! The page you were looking for doesn't exist.",
     },
   },
+
+
+
   {
     path: 'error/:type',
     component: ErrorPageComponent,

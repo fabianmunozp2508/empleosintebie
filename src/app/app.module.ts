@@ -18,6 +18,8 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { InicioComponent } from './views/pages/inicio/inicio.component';
+import { SlierinicioComponent } from './views/pages/slierinicio/slierinicio.component';
 
 
 
@@ -25,6 +27,8 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
   declarations: [
     AppComponent,
     ErrorPageComponent,
+    InicioComponent,
+    SlierinicioComponent,
 
 
   ],
